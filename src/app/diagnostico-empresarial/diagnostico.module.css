@@ -1,0 +1,191 @@
+/* ═══════ LAYOUT ═══════ */
+.container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+.dgHeader {
+  background: linear-gradient(135deg, #1A1A1A 0%, #2A2A2A 50%, #1A1A1A 100%);
+  padding: 48px 24px 44px; text-align: center; position: relative; overflow: hidden;
+}
+.dgHeader::before {
+  content: ''; position: absolute; top: -80px; right: -80px; width: 300px; height: 300px;
+  border-radius: 50%; background: radial-gradient(circle, rgba(196,155,26,0.12) 0%, transparent 70%);
+}
+.dgHeader::after {
+  content: ''; position: absolute; bottom: -60px; left: -60px; width: 220px; height: 220px;
+  border-radius: 50%; background: radial-gradient(circle, rgba(232,112,8,0.06) 0%, transparent 70%);
+}
+.inner { position: relative; z-index: 1; }
+.headerTag {
+  display: inline-block; padding: 5px 14px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+  background: rgba(196,155,26,0.15); color: var(--gold); margin-bottom: 16px;
+}
+.headerTitle {
+  font-family: var(--font-serif); font-size: 32px; font-weight: 700;
+  color: #fff; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 12px;
+  max-width: 540px; margin-left: auto; margin-right: auto;
+}
+.headerTitleAccent { color: var(--gold); }
+.headerDesc { font-size: 15.5px; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 480px; margin: 0 auto; }
+
+/* ═══════ PROGRESS ═══════ */
+.progressWrap { padding: 24px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+.progressBarBg { height: 6px; background: var(--bg-alt); border-radius: 3px; overflow: hidden; }
+.progressBarFill {
+  height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--orange) 100%);
+  border-radius: 3px; transition: width 0.4s ease;
+}
+.progressInfo { display: flex; justify-content: space-between; margin-top: 10px; font-size: 13px; color: var(--text-muted); }
+.progressStep { font-weight: 600; color: var(--gold); }
+
+/* ═══════ SHARED ELEMENTS ═══════ */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 12px;
+  font-family: var(--font-sans); font-size: 15px; font-weight: 600; cursor: pointer;
+  transition: all 0.25s ease; border: none;
+}
+.btn:hover { transform: translateY(-1px); }
+.btnGold { background: var(--gold); color: #fff; box-shadow: 0 2px 10px rgba(196,155,26,0.25); }
+.btnGold:hover { background: var(--gold-hover); box-shadow: 0 6px 20px rgba(196,155,26,0.35); }
+.btnGold:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.btnOrange { background: var(--orange); color: #fff; box-shadow: 0 2px 10px rgba(232,112,8,0.2); }
+.btnOrange:hover { background: var(--orange-hover); }
+.btnDark { background: var(--black); color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.btnDark:hover { background: #2A2A2A; }
+.btnSecondary { background: var(--bg-alt); color: var(--text-secondary); }
+.btnSecondary:hover { background: var(--border); }
+
+.questionSection { padding: 48px 0 80px; min-height: 55vh; }
+.questionCategory { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.questionText { font-family: var(--font-serif); font-size: 26px; font-weight: 600; color: var(--text); letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 32px; }
+.questionContext {
+  font-size: 14px; color: var(--text-muted); line-height: 1.55; margin-bottom: 24px;
+  padding: 14px 18px; background: var(--gold-light); border-radius: 10px; border-left: 3px solid var(--gold);
+}
+.options { display: flex; flex-direction: column; gap: 12px; }
+.option {
+  background: #fff; border: 1.5px solid var(--border); border-radius: 14px;
+  padding: 18px 22px; cursor: pointer; transition: all 0.25s ease;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.option:hover { border-color: var(--gold); background: var(--gold-light); }
+.optionSelected { border-color: var(--gold); background: var(--gold-light); box-shadow: 0 0 0 1px var(--gold); }
+.optionRadio {
+  width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border);
+  flex-shrink: 0; margin-top: 1px; transition: all 0.2s ease;
+  display: flex; align-items: center; justify-content: center;
+}
+.optionSelected .optionRadio { border-color: var(--gold); }
+.optionRadioFill { width: 12px; height: 12px; border-radius: 50%; background: var(--gold); }
+.optionText { font-size: 15px; color: var(--text-secondary); line-height: 1.5; }
+.optionSelected .optionText { color: var(--text); font-weight: 500; }
+.navButtons { display: flex; justify-content: space-between; margin-top: 40px; gap: 12px; }
+
+/* ═══════ ROLE SELECT ═══════ */
+.roleSection { padding: 60px 0 80px; text-align: center; }
+.roleTitle { font-family: var(--font-serif); font-size: 28px; font-weight: 600; color: var(--gold); margin-bottom: 10px; }
+.roleSubtitle { font-size: 16px; color: var(--text-secondary); line-height: 1.6; max-width: 480px; margin: 0 auto 40px; }
+.roleCards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 560px; margin: 0 auto; }
+.roleCard {
+  background: #fff; border: 2px solid var(--border); border-radius: 18px;
+  padding: 28px 24px; cursor: pointer; transition: all 0.3s ease; text-align: left;
+}
+.roleCard:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.06); }
+.roleCardSelected { border-color: var(--gold); background: var(--gold-light); box-shadow: 0 0 0 1px var(--gold); }
+.roleCardIcon { font-size: 28px; margin-bottom: 14px; }
+.roleCardTitle { font-family: var(--font-serif); font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.roleCardDesc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; }
+
+/* ═══════ INTRO ═══════ */
+.introSection { padding: 60px 0 80px; text-align: center; }
+.introTitle { font-family: var(--font-serif); font-size: 28px; font-weight: 600; color: var(--gold); margin-bottom: 16px; }
+.introText { font-size: 16px; color: var(--text-secondary); line-height: 1.65; max-width: 520px; margin: 0 auto 12px; }
+.introDims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 36px auto; max-width: 580px; text-align: left; }
+.introDim { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+.introDimLabel { font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
+.introDimDesc { font-size: 13px; color: var(--text-secondary); line-height: 1.45; }
+.introNote {
+  font-size: 13.5px; color: var(--text-muted); margin-top: 24px;
+  padding: 16px 20px; background: var(--bg-alt); border-radius: 12px;
+  display: inline-block; max-width: 500px; line-height: 1.5;
+}
+
+/* ═══════ RESULTS ═══════ */
+.resultsSection { padding: 60px 0 80px; }
+.resultsBox { background: #fff; border: 1px solid var(--border); border-radius: 24px; padding: 40px; position: relative; overflow: hidden; }
+.resultsLocked::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%; background: linear-gradient(to bottom, transparent 0%, #fff 45%); z-index: 2; }
+.resultsOverall {
+  background: var(--black); border-radius: 18px; padding: 32px; margin-bottom: 28px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.resultsOverall::before {
+  content: ''; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px;
+  border-radius: 50%; background: radial-gradient(circle, rgba(196,155,26,0.1) 0%, transparent 70%);
+}
+.readinessLabel { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; position: relative; z-index: 1; }
+.readinessScore {
+  font-family: var(--font-serif); font-size: 56px; font-weight: 700;
+  color: var(--orange); line-height: 1; margin-bottom: 4px; position: relative; z-index: 1;
+}
+.readinessName { font-family: var(--font-serif); font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 8px; position: relative; z-index: 1; }
+.readinessDesc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.55; max-width: 420px; margin: 0 auto; position: relative; z-index: 1; }
+.dimsGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 32px; }
+.dimCard { background: var(--bg); border-radius: 14px; padding: 20px; text-align: center; }
+.dimScore { font-family: var(--font-serif); font-size: 30px; font-weight: 700; color: var(--gold); line-height: 1; }
+.dimName { font-size: 12.5px; color: var(--text-secondary); margin-top: 6px; line-height: 1.3; }
+.radarWrap { width: 300px; height: 300px; margin: 0 auto 32px; }
+
+/* Full results */
+.resultsFull { margin-top: 32px; }
+.resultsDimDetail { background: var(--bg); border-radius: 16px; padding: 24px 28px; margin-bottom: 16px; }
+.resultsDimDetail h4 { font-family: var(--font-serif); font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.scoreLine { font-size: 13px; font-weight: 600; color: var(--gold); margin-bottom: 10px; }
+.resultsDimDetail p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+.resultsRoadmap { margin-top: 40px; }
+.resultsRoadmapTitle { font-family: var(--font-serif); font-size: 22px; font-weight: 600; color: var(--gold); margin-bottom: 20px; }
+.roadmapStep { display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start; }
+.roadmapNum {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--gold-light); color: var(--gold);
+  font-family: var(--font-serif); font-size: 18px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.roadmapContent h4 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.roadmapContent p { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+
+/* Fractional CTA */
+.fractionalCta {
+  margin-top: 40px; padding: 28px; background: var(--black); border-radius: 18px;
+  display: flex; gap: 24px; align-items: center; position: relative; overflow: hidden;
+}
+.fractionalCta::before {
+  content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px;
+  border-radius: 50%; background: radial-gradient(circle, rgba(196,155,26,0.08) 0%, transparent 70%);
+}
+.fractionalCtaContent { flex: 1; position: relative; z-index: 1; }
+.fractionalCtaLabel { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.fractionalCta h4 { font-family: var(--font-serif); font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+.fractionalCta p { font-size: 13.5px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+.fractionalCtaBtn { position: relative; z-index: 1; white-space: nowrap; padding: 12px 24px; font-size: 14px; }
+
+/* Locked overlay */
+.lockedOverlay {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+  background: #fff; padding: 40px; text-align: center;
+  border-top: 1px solid var(--border); border-radius: 0 0 24px 24px;
+}
+.lockedOverlay h3 { font-family: var(--font-serif); font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+.lockedOverlay p { font-size: 14.5px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 24px; max-width: 420px; margin-left: auto; margin-right: auto; }
+.lockedIncludes { display: flex; justify-content: center; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; }
+.lockedInclude { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+.lockedInclude::before { content: '\2713'; color: var(--gold); font-weight: 700; }
+.lockedPrice { font-family: var(--font-serif); font-size: 32px; font-weight: 700; color: var(--gold); margin-bottom: 16px; }
+.retakeCenter { text-align: center; margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--border); }
+
+@media (max-width: 640px) {
+  .headerTitle { font-size: 26px; }
+  .questionText { font-size: 22px; }
+  .roleCards { grid-template-columns: 1fr; }
+  .introDims { grid-template-columns: 1fr; }
+  .dimsGrid { grid-template-columns: 1fr; }
+  .fractionalCta { flex-direction: column; text-align: center; }
+  .lockedIncludes { flex-direction: column; align-items: center; gap: 8px; }
+}
