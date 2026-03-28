@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Empresarial: Design Readiness — Diana Perez</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #E87008; --orange-hover: #D06307; --orange-light: #FDF0E2;
+  --gold: #C49B1A; --gold-hover: #A8840F; --gold-light: #FBF4E0;
+  --black: #1A1A1A; --bg: #FAFAF8; --bg-alt: #F0EDE8;
+  --text: #1A1A1A; --text-secondary: #4A4A4A; --text-muted: #8A8680;
+  --border: #E0DCD5;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+
+.container{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* ═══════ HEADER ═══════ */
+.dg-header{
+  background:linear-gradient(135deg,#1A1A1A 0%,#2A2A2A 50%,#1A1A1A 100%);
+  padding:48px 24px 44px;text-align:center;position:relative;overflow:hidden;
+}
+.dg-header::before{
+  content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;
+  border-radius:50%;background:radial-gradient(circle,rgba(196,155,26,0.12) 0%,transparent 70%);
+}
+.dg-header::after{
+  content:'';position:absolute;bottom:-60px;left:-60px;width:220px;height:220px;
+  border-radius:50%;background:radial-gradient(circle,rgba(232,112,8,0.06) 0%,transparent 70%);
+}
+.dg-header .inner{position:relative;z-index:1}
+.dg-header .tag{
+  display:inline-block;padding:5px 14px;border-radius:20px;
+  font-size:12px;font-weight:600;letter-spacing:0.04em;
+  background:rgba(196,155,26,0.15);color:var(--gold);margin-bottom:16px;
+}
+.dg-header h1{
+  font-family:'Fraunces',serif;font-size:32px;font-weight:700;
+  color:#fff;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;
+  max-width:540px;margin-left:auto;margin-right:auto;
+}
+.dg-header h1 span{color:var(--gold)}
+.dg-header p{font-size:15.5px;color:rgba(255,255,255,0.5);line-height:1.6;max-width:480px;margin:0 auto}
+
+/* ═══════ PROGRESS ═══════ */
+.progress-wrap{padding:24px 0;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+.progress-bar-bg{height:6px;background:var(--bg-alt);border-radius:3px;overflow:hidden}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold) 0%,var(--orange) 100%);border-radius:3px;transition:width 0.4s ease}
+.progress-info{display:flex;justify-content:space-between;margin-top:10px;font-size:13px;color:var(--text-muted)}
+.progress-step{font-weight:600;color:var(--gold)}
+
+/* ═══════ SHARED ELEMENTS ═══════ */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:12px;
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;
+  transition:all 0.25s ease;border:none;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-gold{background:var(--gold);color:#fff;box-shadow:0 2px 10px rgba(196,155,26,0.25)}
+.btn-gold:hover{background:var(--gold-hover);box-shadow:0 6px 20px rgba(196,155,26,0.35)}
+.btn-gold:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+.btn-orange{background:var(--orange);color:#fff;box-shadow:0 2px 10px rgba(232,112,8,0.2)}
+.btn-orange:hover{background:var(--orange-hover)}
+.btn-dark{background:var(--black);color:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.btn-dark:hover{background:#2A2A2A}
+.btn-secondary{background:var(--bg-alt);color:var(--text-secondary)}
+.btn-secondary:hover{background:var(--border)}
+
+.question-section{padding:48px 0 80px;min-height:55vh}
+.question-category{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.question-text{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--text);letter-spacing:-0.02em;line-height:1.3;margin-bottom:32px}
+.question-context{font-size:14px;color:var(--text-muted);line-height:1.55;margin-bottom:24px;padding:14px 18px;background:var(--gold-light);border-radius:10px;border-left:3px solid var(--gold)}
+.options{display:flex;flex-direction:column;gap:12px}
+.option{
+  background:#fff;border:1.5px solid var(--border);border-radius:14px;
+  padding:18px 22px;cursor:pointer;transition:all 0.25s ease;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.option:hover{border-color:var(--gold);background:var(--gold-light)}
+.option.selected{border-color:var(--gold);background:var(--gold-light);box-shadow:0 0 0 1px var(--gold)}
+.option-radio{
+  width:22px;height:22px;border-radius:50%;border:2px solid var(--border);
+  flex-shrink:0;margin-top:1px;transition:all 0.2s ease;
+  display:flex;align-items:center;justify-content:center;
+}
+.option.selected .option-radio{border-color:var(--gold)}
+.option.selected .option-radio::after{content:'';width:12px;height:12px;border-radius:50%;background:var(--gold)}
+.option-text{font-size:15px;color:var(--text-secondary);line-height:1.5}
+.option.selected .option-text{color:var(--text);font-weight:500}
+.nav-buttons{display:flex;justify-content:space-between;margin-top:40px;gap:12px}
+
+/* ═══════ ROLE SELECT ═══════ */
+.role-section{padding:60px 0 80px;text-align:center}
+.role-title{font-family:'Fraunces',serif;font-size:28px;font-weight:600;color:var(--gold);margin-bottom:10px}
+.role-subtitle{font-size:16px;color:var(--text-secondary);line-height:1.6;max-width:480px;margin:0 auto 40px}
+.role-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:560px;margin:0 auto}
+.role-card{
+  background:#fff;border:2px solid var(--border);border-radius:18px;
+  padding:28px 24px;cursor:pointer;transition:all 0.3s ease;text-align:left;
+}
+.role-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,0.06)}
+.role-card.selected{border-color:var(--gold);background:var(--gold-light);box-shadow:0 0 0 1px var(--gold)}
+.role-card-icon{font-size:28px;margin-bottom:14px}
+.role-card-title{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--text);margin-bottom:6px}
+.role-card-desc{font-size:13.5px;color:var(--text-secondary);line-height:1.5}
+
+/* ═══════ INTRO ═══════ */
+.intro-section{padding:60px 0 80px;text-align:center}
+.intro-title{font-family:'Fraunces',serif;font-size:28px;font-weight:600;color:var(--gold);margin-bottom:16px}
+.intro-text{font-size:16px;color:var(--text-secondary);line-height:1.65;max-width:520px;margin:0 auto 12px}
+.intro-dims{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:36px auto;max-width:580px;text-align:left}
+.intro-dim{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px}
+.intro-dim-label{font-size:11.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.intro-dim-desc{font-size:13px;color:var(--text-secondary);line-height:1.45}
+.intro-note{
+  font-size:13.5px;color:var(--text-muted);margin-top:24px;
+  padding:16px 20px;background:var(--bg-alt);border-radius:12px;
+  display:inline-block;max-width:500px;line-height:1.5;
+}
+
+/* ═══════ RESULTS ═══════ */
+.results-section{padding:60px 0 80px}
+.results-box{background:#fff;border:1px solid var(--border);border-radius:24px;padding:40px;position:relative;overflow:hidden}
+.results-box.locked::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to bottom,transparent 0%,#fff 45%);z-index:2}
+
+.results-overall{
+  background:var(--black);border-radius:18px;padding:32px;margin-bottom:28px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.results-overall::before{
+  content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;
+  border-radius:50%;background:radial-gradient(circle,rgba(196,155,26,0.1) 0%,transparent 70%);
+}
+.results-readiness-label{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;position:relative;z-index:1}
+.results-readiness-score{
+  font-family:'Fraunces',serif;font-size:56px;font-weight:700;
+  color:var(--orange);line-height:1;margin-bottom:4px;position:relative;z-index:1;
+}
+.results-readiness-name{
+  font-family:'Fraunces',serif;font-size:22px;font-weight:600;
+  color:#fff;margin-bottom:8px;position:relative;z-index:1;
+}
+.results-readiness-desc{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.55;max-width:420px;margin:0 auto;position:relative;z-index:1}
+
+.results-dims-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+.results-dim-card{background:var(--bg);border-radius:14px;padding:20px;text-align:center}
+.results-dim-score{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--gold);line-height:1}
+.results-dim-name{font-size:12.5px;color:var(--text-secondary);margin-top:6px;line-height:1.3}
+
+.radar-wrap{width:300px;height:300px;margin:0 auto 32px}
+.radar-wrap canvas{width:100%;height:100%}
+
+/* Full results */
+.results-full{margin-top:32px}
+.results-dim-detail{background:var(--bg);border-radius:16px;padding:24px 28px;margin-bottom:16px}
+.results-dim-detail h4{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--text);margin-bottom:4px}
+.results-dim-detail .score-line{font-size:13px;font-weight:600;color:var(--gold);margin-bottom:10px}
+.results-dim-detail p{font-size:14px;color:var(--text-secondary);line-height:1.6}
+
+.results-roadmap{margin-top:40px}
+.results-roadmap h3{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--gold);margin-bottom:20px}
+.roadmap-step{display:flex;gap:16px;margin-bottom:20px;align-items:flex-start}
+.roadmap-num{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--gold-light);color:var(--gold);
+  font-family:'Fraunces',serif;font-size:18px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.roadmap-content h4{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.roadmap-content p{font-size:14px;color:var(--text-secondary);line-height:1.55}
+
+/* Fractional CTA (subtle) */
+.fractional-cta{
+  margin-top:40px;padding:28px;background:var(--black);border-radius:18px;
+  display:flex;gap:24px;align-items:center;position:relative;overflow:hidden;
+}
+.fractional-cta::before{
+  content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;
+  border-radius:50%;background:radial-gradient(circle,rgba(196,155,26,0.08) 0%,transparent 70%);
+}
+.fractional-cta-content{flex:1;position:relative;z-index:1}
+.fractional-cta-label{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.fractional-cta h4{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:#fff;margin-bottom:6px}
+.fractional-cta p{font-size:13.5px;color:rgba(255,255,255,0.5);line-height:1.5}
+.fractional-cta .btn{position:relative;z-index:1;white-space:nowrap;padding:12px 24px;font-size:14px}
+
+/* Locked overlay */
+.locked-overlay{
+  position:absolute;bottom:0;left:0;right:0;z-index:3;
+  background:#fff;padding:40px;text-align:center;
+  border-top:1px solid var(--border);border-radius:0 0 24px 24px;
+}
+.locked-overlay h3{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--text);margin-bottom:10px}
+.locked-overlay p{font-size:14.5px;color:var(--text-secondary);line-height:1.55;margin-bottom:24px;max-width:420px;margin-left:auto;margin-right:auto}
+.locked-includes{display:flex;justify-content:center;gap:20px;margin-bottom:24px;flex-wrap:wrap}
+.locked-include{font-size:13px;color:var(--text-muted);display:flex;align-items:center;gap:6px}
+.locked-include::before{content:'✓';color:var(--gold);font-weight:700}
+.locked-price{font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:var(--gold);margin-bottom:16px}
+
+@media(max-width:640px){
+  .dg-header h1{font-size:26px}
+  .question-text{font-size:22px}
+  .role-cards{grid-template-columns:1fr}
+  .intro-dims{grid-template-columns:1fr}
+  .results-dims-grid{grid-template-columns:1fr}
+  .fractional-cta{flex-direction:column;text-align:center}
+  .locked-includes{flex-direction:column;align-items:center;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="dg-header">
+  <div class="inner">
+    <div class="tag">Diagnóstico para empresas</div>
+    <h1>¿Qué tan lista está tu empresa para <span>escalar diseño</span>?</h1>
+    <p>Evalúa la madurez de diseño de tu organización y descubre qué necesitas para convertir diseño en una ventaja competitiva real.</p>
+  </div>
+</div>
+
+<div id="app"></div>
+
+<script>
+// ═══════ DATA ═══════
+const DIMENSIONS = [
+  {id:'team',name:'Equipo y talento',cat:'Capacidad'},
+  {id:'process',name:'Proceso de diseño',cat:'Capacidad'},
+  {id:'strategy',name:'Diseño en la estrategia',cat:'Integración'},
+  {id:'culture',name:'Cultura organizacional',cat:'Integración'},
+  {id:'ops',name:'Operaciones y governance',cat:'Escala'},
+  {id:'impact',name:'Medición de impacto',cat:'Escala'},
+];
+
+// Questions adapt based on role
+const QUESTIONS_FOUNDER = [
+  {dim:'team',cat:'Equipo y talento',
+    text:'¿Cómo está conformada la función de diseño en tu empresa hoy?',
+    context:'Esto nos ayuda a entender tu punto de partida.',
+    options:[
+      {text:'No tenemos diseñador. El producto lo definen engineering o producto.',score:1},
+      {text:'Tenemos 1-2 diseñadores pero no hay liderazgo de diseño.',score:2},
+      {text:'Hay un equipo pequeño con un lead, pero sin dirección estratégica formal.',score:3},
+      {text:'Hay un equipo de diseño con liderazgo senior y roles diferenciados.',score:4},
+    ]},
+  {dim:'team',cat:'Equipo y talento',
+    text:'¿Cómo contratas y evalúas talento de diseño?',
+    options:[
+      {text:'No tenemos criterio claro. Contratamos cuando hay dolor evidente.',score:1},
+      {text:'Buscamos perfiles generalistas que "sepan de todo un poco".',score:2},
+      {text:'Tenemos roles definidos pero no career paths ni growth frameworks.',score:3},
+      {text:'Roles claros, career paths, y un proceso de evaluación estructurado.',score:4},
+    ]},
+  {dim:'process',cat:'Proceso de diseño',
+    text:'¿Cómo se toman las decisiones sobre qué construir y cómo?',
+    context:'Piensa en el último feature o producto que lanzaron.',
+    options:[
+      {text:'Los founders o stakeholders deciden qué y cómo. Se ejecuta directo.',score:1},
+      {text:'Producto define el qué, diseño hace wireframes o mockups del cómo.',score:2},
+      {text:'Hay discovery con research y diseño antes de definir la solución.',score:3},
+      {text:'Diseño co-lidera discovery, prototipa, valida con usuarios, e itera post-launch.',score:4},
+    ]},
+  {dim:'process',cat:'Proceso de diseño',
+    text:'¿Qué pasa cuando un diseño no funciona como se esperaba post-lanzamiento?',
+    options:[
+      {text:'No lo sabemos. No medimos el impacto de decisiones de diseño.',score:1},
+      {text:'A veces nos enteramos por feedback de soporte o quejas.',score:2},
+      {text:'Revisamos métricas post-launch pero no siempre iteramos.',score:3},
+      {text:'Hay ciclos de medición e iteración continua con ownership de diseño.',score:4},
+    ]},
+  {dim:'strategy',cat:'Diseño en la estrategia',
+    text:'¿Diseño tiene voz en las decisiones estratégicas del producto?',
+    options:[
+      {text:'No. Las decisiones estratégicas son de founders y/o producto.',score:1},
+      {text:'Se consulta a diseño ocasionalmente, pero no tiene voto.',score:2},
+      {text:'Diseño participa en planning y roadmap con voz activa.',score:3},
+      {text:'Diseño co-define la visión de producto y prioridades estratégicas.',score:4},
+    ]},
+  {dim:'strategy',cat:'Diseño en la estrategia',
+    text:'¿Cómo se conecta el trabajo de diseño con los objetivos de negocio?',
+    options:[
+      {text:'No hay conexión explícita. Diseño entrega pantallas.',score:1},
+      {text:'Hay métricas de usabilidad pero no se vinculan a revenue o growth.',score:2},
+      {text:'Algunas iniciativas de diseño se miden contra KPIs de negocio.',score:3},
+      {text:'Diseño tiene OKRs propios vinculados directamente a resultados de negocio.',score:4},
+    ]},
+  {dim:'culture',cat:'Cultura organizacional',
+    text:'¿Cómo ven engineering y producto al equipo de diseño?',
+    context:'Piensa en la dinámica real del día a día, no en lo que se dice en all-hands.',
+    options:[
+      {text:'"Hacen que se vea bien". Diseño es cosmético.',score:1},
+      {text:'Respetan el trabajo pero no entienden bien el valor estratégico.',score:2},
+      {text:'Valoran a diseño y lo involucran temprano en la mayoría de proyectos.',score:3},
+      {text:'Diseño es considerado par estratégico. No se toman decisiones de producto sin diseño.',score:4},
+    ]},
+  {dim:'culture',cat:'Cultura organizacional',
+    text:'¿Qué pasa cuando diseño y negocio/producto tienen perspectivas diferentes?',
+    options:[
+      {text:'Gana negocio/producto. Siempre.',score:1},
+      {text:'Se escucha a diseño pero la decisión final es de negocio.',score:2},
+      {text:'Se busca evidencia (research, datos) para resolver el desacuerdo.',score:3},
+      {text:'Hay un framework de decisión donde la evidencia de usuario tiene peso real.',score:4},
+    ]},
+  {dim:'ops',cat:'Operaciones y governance',
+    text:'¿Tienen un design system o componentes compartidos?',
+    options:[
+      {text:'No. Cada proyecto empieza de cero.',score:1},
+      {text:'Hay componentes sueltos pero sin sistema ni governance.',score:2},
+      {text:'Hay un design system con documentación pero adopción parcial.',score:3},
+      {text:'Design system maduro, adoptado por engineering, con governance y ownership.',score:4},
+    ]},
+  {dim:'ops',cat:'Operaciones y governance',
+    text:'¿Cómo se coordina el trabajo de diseño con el resto de la organización?',
+    options:[
+      {text:'Cada diseñador se coordina por su cuenta con su squad o PM.',score:1},
+      {text:'Hay reuniones esporádicas de diseño pero sin estructura.',score:2},
+      {text:'Hay rituales definidos (crits, reviews, syncs) con cadencia regular.',score:3},
+      {text:'Design Ops formalizado: rituales, playbooks, governance, mejora continua.',score:4},
+    ]},
+  {dim:'impact',cat:'Medición de impacto',
+    text:'¿Puedes articular cuánto valor genera (o ahorra) el equipo de diseño?',
+    context:'Piensa en si podrías defender el presupuesto de diseño con números.',
+    options:[
+      {text:'No. No medimos el impacto de diseño en métricas de negocio.',score:1},
+      {text:'Tenemos intuición de que agrega valor pero no datos concretos.',score:2},
+      {text:'Algunas iniciativas tienen métricas de impacto claras.',score:3},
+      {text:'Podemos reportar impacto de diseño en revenue, retention, o cost savings.',score:4},
+    ]},
+  {dim:'impact',cat:'Medición de impacto',
+    text:'¿Cómo evalúas si tu inversión en diseño está dando resultados?',
+    options:[
+      {text:'No lo evalúo. Es un costo que asumimos.',score:1},
+      {text:'Evalúo si los entregables se ven bien y si el equipo cumple deadlines.',score:2},
+      {text:'Mido calidad de producto (NPS, usabilidad) pero no ROI directo.',score:3},
+      {text:'Tengo métricas claras de ROI de diseño que reporto a board/leadership.',score:4},
+    ]},
+];
+
+// CPO/VP questions are similar but with different framing
+const QUESTIONS_CPO = QUESTIONS_FOUNDER.map(q => ({...q}));
+// Adjust context for CPO role
+QUESTIONS_CPO[0] = {...QUESTIONS_CPO[0], text:'¿Cómo está estructurada la función de diseño dentro de tu organización de producto?'};
+QUESTIONS_CPO[4] = {...QUESTIONS_CPO[4], text:'¿Cómo se integra diseño en tu proceso de planning y priorización?'};
+QUESTIONS_CPO[10] = {...QUESTIONS_CPO[10], text:'¿Puedes articular el ROI de tu equipo de diseño ante el board o C-suite?', context:'Piensa en tu último board review o budget conversation.'};
+
+const READINESS_LEVELS = [
+  {min:1,max:1.5,name:'Pre-diseño',color:'#D44',desc:'La función de diseño es inexistente o puramente reactiva. El producto se construye sin proceso de diseño formal.'},
+  {min:1.5,max:2.2,name:'Diseño táctico',color:'var(--orange)',desc:'Hay diseñadores pero sin dirección, sin proceso consistente, y sin conexión con la estrategia de negocio.'},
+  {min:2.2,max:3.0,name:'Diseño en transición',color:'var(--gold)',desc:'La organización reconoce el valor del diseño y está construyendo capacidad, pero falta consistencia y escala.'},
+  {min:3.0,max:3.6,name:'Diseño integrado',color:'var(--gold)',desc:'Diseño tiene proceso, voz, y métricas. El reto es escalar sin perder calidad ni velocidad.'},
+  {min:3.6,max:4.01,name:'Design-driven',color:'var(--gold)',desc:'Diseño es parte integral de la estrategia. La organización compite con diseño como ventaja.'},
+];
+
+function getLevel(score) {
+  return READINESS_LEVELS.find(l => score >= l.min && score < l.max) || READINESS_LEVELS[READINESS_LEVELS.length - 1];
+}
+
+// ═══════ STATE ═══════
+let step = 'role'; // role, intro, question, results
+let role = null; // 'founder' | 'cpo'
+let currentQ = 0;
+let answers = {};
+let unlocked = false;
+
+function getQuestions() { return role === 'cpo' ? QUESTIONS_CPO : QUESTIONS_FOUNDER; }
+
+function render() {
+  const app = document.getElementById('app');
+  if (step === 'role') app.innerHTML = renderRole();
+  else if (step === 'intro') app.innerHTML = renderIntro();
+  else if (step === 'question') app.innerHTML = renderQuestion();
+  else if (step === 'results') app.innerHTML = renderResults();
+  bindEvents();
+}
+
+function renderRole() {
+  return `<div class="container"><div class="role-section">
+    <h2 class="role-title">Antes de empezar</h2>
+    <p class="role-subtitle">Las preguntas se adaptan a tu contexto. ¿Cuál describe mejor tu rol?</p>
+    <div class="role-cards">
+      <div class="role-card ${role==='founder'?'selected':''}" data-role="founder">
+        <div class="role-card-icon">🚀</div>
+        <div class="role-card-title">Founder / CEO</div>
+        <div class="role-card-desc">Estoy evaluando si necesito invertir en diseño o cómo escalar lo que tengo.</div>
+      </div>
+      <div class="role-card ${role==='cpo'?'selected':''}" data-role="cpo">
+        <div class="role-card-icon">📊</div>
+        <div class="role-card-title">CPO / VP Producto</div>
+        <div class="role-card-desc">Ya tengo equipo de diseño y quiero evaluar su madurez y potencial de escala.</div>
+      </div>
+    </div>
+    <div style="margin-top:36px">
+      <button class="btn btn-gold" onclick="goIntro()" ${!role?'disabled':''}>Continuar</button>
+    </div>
+  </div></div>`;
+}
+
+function renderIntro() {
+  const roleLabel = role === 'founder' ? 'Como founder/CEO' : 'Como líder de producto';
+  return `<div class="container"><div class="intro-section">
+    <h2 class="intro-title">¿Cómo funciona?</h2>
+    <p class="intro-text">${roleLabel}, vas a responder 12 preguntas sobre 6 dimensiones de madurez de diseño. Toma ~5 minutos.</p>
+    <div class="intro-dims">
+      <div class="intro-dim"><div class="intro-dim-label">Equipo</div><div class="intro-dim-desc">Talento, roles, y estructura</div></div>
+      <div class="intro-dim"><div class="intro-dim-label">Proceso</div><div class="intro-dim-desc">Cómo se diseña y decide</div></div>
+      <div class="intro-dim"><div class="intro-dim-label">Estrategia</div><div class="intro-dim-desc">Diseño en decisiones clave</div></div>
+      <div class="intro-dim"><div class="intro-dim-label">Cultura</div><div class="intro-dim-desc">Cómo se percibe diseño</div></div>
+      <div class="intro-dim"><div class="intro-dim-label">Operaciones</div><div class="intro-dim-desc">Sistemas, governance, ops</div></div>
+      <div class="intro-dim"><div class="intro-dim-label">Impacto</div><div class="intro-dim-desc">Medición y ROI</div></div>
+    </div>
+    <p class="intro-text">Al final recibes tu nivel de Design Readiness con un análisis de cada dimensión y recomendaciones de siguientes pasos.</p>
+    <div class="intro-note">Creado por Diana Perez, Strategic Product Design Leader con 10+ años construyendo y escalando funciones de diseño en fintech y mercados emergentes.</div>
+    <div style="margin-top:36px">
+      <button class="btn btn-gold" onclick="startQuestions()">Comenzar evaluación</button>
+    </div>
+  </div></div>`;
+}
+
+function renderQuestion() {
+  const qs = getQuestions();
+  const q = qs[currentQ];
+  const progress = ((currentQ+1)/qs.length)*100;
+  const sel = answers[currentQ];
+  return `
+    <div class="progress-wrap"><div class="container">
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${progress}%"></div></div>
+      <div class="progress-info">
+        <span class="progress-step">Pregunta ${currentQ+1} de ${qs.length}</span>
+        <span>${q.cat}</span>
+      </div>
+    </div></div>
+    <div class="container"><div class="question-section">
+      <div class="question-category">${q.cat}</div>
+      <h2 class="question-text">${q.text}</h2>
+      ${q.context ? `<div class="question-context">${q.context}</div>` : ''}
+      <div class="options">
+        ${q.options.map((o,i) => `
+          <div class="option ${sel===i?'selected':''}" data-idx="${i}">
+            <div class="option-radio"></div>
+            <div class="option-text">${o.text}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-secondary" onclick="prevQ()" ${currentQ===0?'style="visibility:hidden"':''}>← Anterior</button>
+        <button class="btn btn-gold" onclick="nextQ()" ${sel===undefined?'disabled':''}>${currentQ===qs.length-1?'Ver resultados':'Siguiente →'}</button>
+      </div>
+    </div></div>`;
+}
+
+function renderResults() {
+  const qs = getQuestions();
+  const dimScores = {};
+  DIMENSIONS.forEach(d => {dimScores[d.id]={total:0,count:0}});
+  Object.keys(answers).forEach(qi => {
+    const q = qs[qi]; dimScores[q.dim].total += q.options[answers[qi]].score; dimScores[q.dim].count++;
+  });
+  DIMENSIONS.forEach(d => {dimScores[d.id].avg = dimScores[d.id].count>0 ? dimScores[d.id].total/dimScores[d.id].count : 0});
+
+  const overall = DIMENSIONS.reduce((s,d) => s+dimScores[d.id].avg, 0) / DIMENSIONS.length;
+  const level = getLevel(overall);
+
+  // Identify weakest dimensions for roadmap
+  const sorted = DIMENSIONS.map(d => ({...d, score:dimScores[d.id].avg})).sort((a,b) => a.score-b.score);
+  const needsFractional = overall < 3.0 && dimScores['strategy'].avg < 2.5;
+
+  return `<div class="container"><div class="results-section">
+    <div class="results-box ${unlocked?'':'locked'}">
+      <div class="results-overall">
+        <div class="results-readiness-label">Design Readiness Score</div>
+        <div class="results-readiness-score">${overall.toFixed(1)}</div>
+        <div class="results-readiness-name">${level.name}</div>
+        <div class="results-readiness-desc">${level.desc}</div>
+      </div>
+
+      <div class="results-dims-grid">
+        ${DIMENSIONS.map(d => `
+          <div class="results-dim-card">
+            <div class="results-dim-score">${dimScores[d.id].avg.toFixed(1)}</div>
+            <div class="results-dim-name">${d.name}</div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="radar-wrap"><canvas id="radarCanvas" width="300" height="300"></canvas></div>
+
+      ${unlocked ? renderFull(dimScores, sorted, needsFractional, level) : ''}
+
+      ${!unlocked ? `
+      <div class="locked-overlay">
+        <h3>Desbloquea tu diagnóstico completo</h3>
+        <p>Obtén el análisis detallado por dimensión, tu gap analysis, roadmap de acción, y recomendaciones de inversión en diseño.</p>
+        <div class="locked-includes">
+          <span class="locked-include">Análisis × 6 dimensiones</span>
+          <span class="locked-include">Gap analysis</span>
+          <span class="locked-include">Roadmap de acción</span>
+          <span class="locked-include">Recomendación de inversión</span>
+        </div>
+        <div class="locked-price">$45 USD</div>
+        <button class="btn btn-gold" onclick="unlock()" style="margin-right:12px">Desbloquear diagnóstico</button>
+        <button class="btn btn-secondary" onclick="restart()">Volver a hacer</button>
+      </div>` : ''}
+    </div>
+  </div></div>`;
+}
+
+function renderFull(dimScores, sorted, needsFractional, level) {
+  return `<div class="results-full">
+    <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--gold);margin-bottom:20px">Análisis por dimensión</h3>
+    ${DIMENSIONS.map(d => `
+      <div class="results-dim-detail">
+        <h4>${d.name}</h4>
+        <div class="score-line">${dimScores[d.id].avg.toFixed(1)} / 4.0 — ${d.cat}</div>
+        <p>${getDimInsight(d.id, dimScores[d.id].avg)}</p>
+      </div>
+    `).join('')}
+
+    <div class="results-roadmap">
+      <h3>Tu roadmap: próximos 3 pasos</h3>
+      ${getRoadmap(sorted).map((s,i) => `
+        <div class="roadmap-step">
+          <div class="roadmap-num">${i+1}</div>
+          <div class="roadmap-content"><h4>${s.title}</h4><p>${s.desc}</p></div>
+        </div>
+      `).join('')}
+    </div>
+
+    ${needsFractional ? `
+    <div class="fractional-cta">
+      <div class="fractional-cta-content">
+        <div class="fractional-cta-label">Una opción a considerar</div>
+        <h4>Head of Design Fraccional</h4>
+        <p>Si tu organización necesita dirección estratégica de diseño pero no está lista (o no tiene presupuesto) para un Head of Design full-time, un modelo fraccional puede cubrir ese gap: liderazgo senior part-time que establece proceso, estructura, y governance mientras el equipo crece.</p>
+      </div>
+      <a href="/contact" class="btn btn-gold">Conversemos →</a>
+    </div>` : `
+    <div class="fractional-cta">
+      <div class="fractional-cta-content">
+        <div class="fractional-cta-label">¿Necesitas ayuda para implementar esto?</div>
+        <h4>Advisory estratégico en diseño</h4>
+        <p>Si quieres acelerar la evolución de tu función de diseño con alguien que ya ha hecho este camino en fintech y mercados emergentes, podemos explorar un formato de advisory o acompañamiento puntual.</p>
+      </div>
+      <a href="/contact" class="btn btn-gold">Conversemos →</a>
+    </div>`}
+
+    <div style="text-align:center;margin-top:32px;padding-top:28px;border-top:1px solid var(--border)">
+      <button class="btn btn-dark" onclick="restart()">Hacer el diagnóstico de nuevo</button>
+    </div>
+  </div>`;
+}
+
+function getDimInsight(id, score) {
+  const insights = {
+    team: {
+      low:'No hay estructura de diseño. El primer paso es definir qué tipo de diseñador necesitas (no "alguien de UI") y qué problema de negocio va a resolver.',
+      mid:'Tienes talento pero sin dirección. Necesitas alguien senior que defina roles, expectativas, y crecimiento del equipo.',
+      high:'Equipo estructurado. El siguiente paso es asegurar que el liderazgo de diseño tenga influence real en la dirección de producto.'
+    },
+    process: {
+      low:'Sin proceso, cada proyecto es improvisación. Establece un flujo mínimo: entender el problema → explorar → validar → construir → medir.',
+      mid:'Hay proceso pero inconsistente. Documenta lo que funciona y hazlo el estándar. Un design review semanal puede ser transformador.',
+      high:'Proceso sólido. Mide ahora la eficiencia: tiempo de ciclo, cuánto rework se genera, y satisfacción del equipo con el proceso.'
+    },
+    strategy: {
+      low:'Diseño no tiene voz en la estrategia. Si quieres que diseño genere impacto de negocio, necesita estar presente cuando se definen las prioridades.',
+      mid:'Diseño tiene voz parcial. Formaliza su participación: que tenga un asiento permanente en planning, no invitaciones esporádicas.',
+      high:'Diseño es estratégico. Mantén eso con métricas de impacto visibles y comunicación regular a leadership.'
+    },
+    culture: {
+      low:'Diseño se percibe como cosmético. Esto se cambia con resultados medibles, no con evangelización. Muestra impacto en números que le importan al negocio.',
+      mid:'Hay respeto pero no integración profunda. Invita a otros equipos al proceso de diseño (research, reviews) para construir entendimiento.',
+      high:'Cultura design-aware. Esto es frágil: documéntalo, institucionalízalo, y protégelo de cambios de liderazgo.'
+    },
+    ops: {
+      low:'Sin governance ni sistemas compartidos. Empieza con un design system mínimo (10 componentes) y 1 ritual semanal.',
+      mid:'Hay piezas pero no sistema. Conecta design system + rituales + procesos en un loop coherente con ownership claro.',
+      high:'Ops maduro. Automatiza lo repetitivo y mide la eficiencia operativa del equipo de diseño.'
+    },
+    impact: {
+      low:'No se mide el impacto de diseño. Empieza retroactivamente: identifica 2-3 decisiones de diseño recientes y conecta con métricas de negocio.',
+      mid:'Hay intuición de valor pero no datos. Establece un sistema simple: para cada iniciativa de diseño, define el metric que debería mover ANTES de diseñar.',
+      high:'Impacto medible. Usa estos datos para hacer el caso de inversión en diseño y expandir el equipo.'
+    }
+  };
+  const lev = score < 2 ? 'low' : score < 3 ? 'mid' : 'high';
+  return insights[id]?.[lev] || '';
+}
+
+function getRoadmap(sorted) {
+  const steps = {
+    team:{title:'Estructura tu equipo de diseño',desc:'Define roles claros (no "diseñador de todo"), establece expectativas por nivel, y contrata con intención. Si no tienes presupuesto para un líder full-time, considera un modelo fraccional.'},
+    process:{title:'Formaliza tu proceso de diseño',desc:'Implementa un flujo de 4 pasos (discovery → diseño → validación → iteración) y establece design reviews semanales. Documenta lo que funciona.'},
+    strategy:{title:'Dale a diseño un asiento en la mesa',desc:'Incluye a diseño en planning desde el inicio. Que presente insights de usuario y propuestas de dirección, no solo mockups terminados.'},
+    culture:{title:'Construye credibilidad con resultados',desc:'Elige 1-2 proyectos donde diseño pueda demostrar impacto medible en métricas de negocio. Comunica los resultados ampliamente.'},
+    ops:{title:'Establece governance de diseño básico',desc:'Crea un design system starter, define ownership, y establece rituales de calidad (crits, reviews). Sin esto, escalar es imposible.'},
+    impact:{title:'Conecta diseño con métricas de negocio',desc:'Para cada iniciativa, define el KPI de negocio que debería mover antes de empezar. Post-launch, mide y reporta. Eso construye el caso para más inversión.'},
+  };
+  return sorted.slice(0,3).map(d => steps[d.id]);
+}
+
+// ═══════ INTERACTIONS ═══════
+function selectRole(r){role=r;render()}
+function goIntro(){if(role){step='intro';render();window.scrollTo(0,0)}}
+function startQuestions(){step='question';currentQ=0;render();window.scrollTo(0,0)}
+function selectOption(i){answers[currentQ]=i;render()}
+function nextQ(){
+  if(answers[currentQ]===undefined)return;
+  const qs=getQuestions();
+  if(currentQ<qs.length-1){currentQ++;render();window.scrollTo(0,0)}
+  else{step='results';render();window.scrollTo(0,0);setTimeout(drawRadar,100)}
+}
+function prevQ(){if(currentQ>0){currentQ--;render();window.scrollTo(0,0)}}
+function unlock(){unlocked=true;render();window.scrollTo(0,0);setTimeout(drawRadar,100)}
+function restart(){answers={};currentQ=0;unlocked=false;step='role';role=null;render();window.scrollTo(0,0)}
+
+function bindEvents(){
+  document.querySelectorAll('.role-card').forEach(c => {
+    c.addEventListener('click', () => selectRole(c.dataset.role));
+  });
+  document.querySelectorAll('.option').forEach(o => {
+    o.addEventListener('click', () => selectOption(parseInt(o.dataset.idx)));
+  });
+}
+
+// ═══════ RADAR ═══════
+function drawRadar(){
+  const canvas=document.getElementById('radarCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const W=300,H=300,cx=W/2,cy=H/2,R=105;
+  canvas.width=W*2;canvas.height=H*2;
+  canvas.style.width=W+'px';canvas.style.height=H+'px';
+  ctx.scale(2,2);
+
+  const qs=getQuestions();
+  const dimScores={};
+  DIMENSIONS.forEach(d=>{dimScores[d.id]={total:0,count:0}});
+  Object.keys(answers).forEach(qi=>{
+    const q=qs[qi];dimScores[q.dim].total+=q.options[answers[qi]].score;dimScores[q.dim].count++
+  });
+  const scores=DIMENSIONS.map(d=>dimScores[d.id].count>0?dimScores[d.id].total/dimScores[d.id].count:0);
+  const n=scores.length;
+
+  // Grid
+  for(let lv=1;lv<=4;lv++){
+    ctx.beginPath();
+    for(let i=0;i<=n;i++){
+      const a=(Math.PI*2*(i%n))/n-Math.PI/2;
+      const r=(lv/4)*R;
+      i===0?ctx.moveTo(cx+r*Math.cos(a),cy+r*Math.sin(a)):ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));
+    }
+    ctx.closePath();ctx.strokeStyle=lv===4?'#E0DCD5':'#F0EDE8';ctx.lineWidth=1;ctx.stroke();
+  }
+  // Axes
+  for(let i=0;i<n;i++){
+    const a=(Math.PI*2*i)/n-Math.PI/2;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+R*Math.cos(a),cy+R*Math.sin(a));
+    ctx.strokeStyle='#E0DCD5';ctx.lineWidth=1;ctx.stroke();
+  }
+  // Data
+  ctx.beginPath();
+  scores.forEach((s,i)=>{
+    const a=(Math.PI*2*i)/n-Math.PI/2;const r=(s/4)*R;
+    i===0?ctx.moveTo(cx+r*Math.cos(a),cy+r*Math.sin(a)):ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));
+  });
+  ctx.closePath();ctx.fillStyle='rgba(196,155,26,0.12)';ctx.fill();
+  ctx.strokeStyle='#C49B1A';ctx.lineWidth=2;ctx.stroke();
+  // Points
+  scores.forEach((s,i)=>{
+    const a=(Math.PI*2*i)/n-Math.PI/2;const r=(s/4)*R;
+    ctx.beginPath();ctx.arc(cx+r*Math.cos(a),cy+r*Math.sin(a),4,0,Math.PI*2);
+    ctx.fillStyle='#C49B1A';ctx.fill();
+  });
+  // Labels
+  ctx.font='500 11px "DM Sans",sans-serif';ctx.textAlign='center';
+  DIMENSIONS.forEach((d,i)=>{
+    const a=(Math.PI*2*i)/n-Math.PI/2;const lr=R+30;
+    const x=cx+lr*Math.cos(a),y=cy+lr*Math.sin(a);
+    ctx.fillStyle='#C49B1A';
+    const words=d.name.split(' ');
+    if(words.length>2){
+      const mid=Math.ceil(words.length/2);
+      ctx.fillText(words.slice(0,mid).join(' '),x,y-6);
+      ctx.fillText(words.slice(mid).join(' '),x,y+8);
+    } else ctx.fillText(d.name,x,y+3);
+  });
+}
+
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diana Perez — Strategic Product Design Leader</title>
+<meta name="description" content="Strategic Product Design Leader building scalable fintech systems that drive revenue across LATAM and global markets.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #E87008;
+  --orange-hover: #D06307;
+  --orange-dark: #B85506;
+  --orange-light: #FDF0E2;
+  --gold: #C49B1A;
+  --gold-hover: #A8840F;
+  --gold-light: #FBF4E0;
+  --black: #1A1A1A;
+  --black-hover: #2A2A2A;
+  --bg: #FAFAF8;
+  --bg-alt: #F0EDE8;
+  --text: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-muted: #8A8680;
+  --border: #E0DCD5;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ═══════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.fade-in { animation: fadeInUp 0.7s ease both; }
+.fade-in-d1 { animation-delay: 0.1s; }
+.fade-in-d2 { animation-delay: 0.2s; }
+.fade-in-d3 { animation-delay: 0.35s; }
+.fade-in-d4 { animation-delay: 0.5s; }
+
+/* ═══════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250,250,248,0.88);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(224,220,213,0.5);
+}
+.nav-inner {
+  max-width: 1120px; margin: 0 auto; padding: 0 40px;
+  display: flex; align-items: center; justify-content: space-between; height: 68px;
+}
+.nav-logo {
+  font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700;
+  color: var(--orange); letter-spacing: -0.03em;
+  transition: opacity 0.2s ease;
+}
+.nav-logo:hover { opacity: 0.8; }
+.nav-links { display: flex; align-items: center; gap: 6px; }
+.nav-link {
+  padding: 8px 18px; border-radius: 8px; font-size: 14.5px; font-weight: 500;
+  color: var(--text-secondary); transition: all 0.2s ease;
+}
+.nav-link:hover { color: var(--orange); background: var(--orange-light); }
+.nav-link.active { color: #fff; background: var(--orange); font-weight: 600; }
+.nav-cta {
+  padding: 10px 24px; border-radius: 10px; background: var(--black); color: #fff;
+  font-size: 14px; font-weight: 600; margin-left: 12px; transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.nav-cta:hover { background: var(--black-hover); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+
+/* Mobile menu */
+.nav-mobile-toggle {
+  display: none; background: none; border: none; cursor: pointer; padding: 8px;
+}
+.nav-mobile-toggle span {
+  display: block; width: 22px; height: 2px; background: var(--text);
+  margin: 5px 0; transition: all 0.3s ease; border-radius: 2px;
+}
+
+/* ═══════════════════════════════════
+   HERO
+   ═══════════════════════════════════ */
+.hero {
+  padding: 140px 40px 80px;
+  max-width: 1120px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px; align-items: center; min-height: 90vh;
+}
+.hero-overline {
+  font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-overline::before {
+  content: ''; width: 36px; height: 2px; background: var(--gold); border-radius: 1px;
+}
+.hero-title {
+  font-family: 'Fraunces', serif; font-size: 50px; font-weight: 700;
+  color: var(--text); letter-spacing: -0.035em; line-height: 1.08; margin-bottom: 24px;
+}
+.hero-title span { color: var(--orange); }
+.hero-desc {
+  font-size: 17.5px; color: var(--text-secondary); line-height: 1.65;
+  margin-bottom: 40px; max-width: 480px;
+}
+.hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 15px 34px; border-radius: 12px;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: all 0.25s ease; border: none; letter-spacing: 0.01em;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary {
+  background: var(--orange); color: #fff;
+  box-shadow: 0 3px 12px rgba(232,112,8,0.2);
+}
+.btn-primary:hover { background: var(--orange-hover); box-shadow: 0 8px 28px rgba(232,112,8,0.3); }
+.btn-secondary {
+  background: var(--black); color: #fff;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+.btn-secondary:hover { background: var(--black-hover); box-shadow: 0 8px 28px rgba(0,0,0,0.18); }
+.btn-outline {
+  background: transparent; color: var(--orange); border: 1.5px solid var(--orange);
+  padding: 14px 33px;
+}
+.btn-outline:hover { background: var(--orange-light); }
+
+/* Hero visual */
+.hero-visual { position: relative; display: flex; justify-content: center; }
+.hero-photo-frame {
+  width: 400px; height: 480px; border-radius: 28px;
+  background: linear-gradient(160deg, var(--orange) 0%, var(--gold) 55%, var(--black) 100%);
+  padding: 4px; position: relative;
+  box-shadow: 0 32px 80px rgba(232,112,8,0.12), 0 8px 24px rgba(0,0,0,0.06);
+}
+.hero-photo-inner {
+  width: 100%; height: 100%; border-radius: 25px;
+  background: var(--bg-alt); display: flex; align-items: center;
+  justify-content: center; overflow: hidden;
+}
+.hero-photo-placeholder {
+  font-family: 'Fraunces', serif; font-size: 80px; font-weight: 300;
+  color: var(--orange); opacity: 0.15;
+}
+
+.metric-float {
+  position: absolute; background: #fff; border-radius: 14px; padding: 16px 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  border: 1px solid rgba(224,220,213,0.6); animation: float 5s ease-in-out infinite;
+}
+.metric-float-value {
+  font-family: 'Fraunces', serif; font-size: 26px; font-weight: 700;
+  color: var(--orange); line-height: 1;
+}
+.metric-float-label { font-size: 11.5px; color: var(--text-muted); margin-top: 5px; max-width: 110px; line-height: 1.35; }
+.mf-1 { top: 30px; left: -20px; animation-delay: 0s; }
+.mf-2 { bottom: 50px; right: -30px; animation-delay: 1.8s; }
+.mf-3 { bottom: 45%; left: -44px; animation-delay: 3.5s; }
+
+/* ═══════════════════════════════════
+   METRICS BAR
+   ═══════════════════════════════════ */
+.metrics-bar { background: var(--black); padding: 52px 40px; }
+.metrics-inner {
+  max-width: 1120px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+.metric-item { text-align: center; position: relative; padding: 0 16px; }
+.metric-item:not(:last-child)::after {
+  content: ''; position: absolute; right: 0; top: 8%; height: 84%; width: 1px;
+  background: rgba(255,255,255,0.08);
+}
+.metric-value {
+  font-family: 'Fraunces', serif; font-size: 44px; font-weight: 700;
+  color: var(--orange); letter-spacing: -0.02em; line-height: 1; margin-bottom: 10px;
+}
+.metric-desc { font-size: 14.5px; color: rgba(255,255,255,0.5); line-height: 1.5; max-width: 250px; margin: 0 auto; }
+
+/* ═══════════════════════════════════
+   ABOUT PREVIEW
+   ═══════════════════════════════════ */
+.about {
+  padding: 100px 40px; max-width: 1120px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.15fr; gap: 80px; align-items: center;
+}
+.about-overline {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+}
+.about-title {
+  font-family: 'Fraunces', serif; font-size: 34px; font-weight: 600;
+  color: var(--orange); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 20px;
+}
+.about-text { font-size: 16px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
+.about-link {
+  font-size: 15px; font-weight: 600; color: var(--orange);
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 8px;
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: rgba(232,112,8,0.3); transition: all 0.2s ease;
+}
+.about-link:hover { text-decoration-color: var(--orange); gap: 10px; }
+
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.about-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 26px;
+  transition: all 0.3s ease; position: relative; overflow: hidden;
+}
+.about-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.06); }
+.about-card-number {
+  font-family: 'Fraunces', serif; font-size: 30px; font-weight: 700;
+  color: var(--orange); margin-bottom: 6px; line-height: 1;
+}
+.about-card-label { font-size: 13.5px; color: var(--text-secondary); line-height: 1.45; }
+.about-card::after {
+  content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px;
+  background: var(--orange-light); border-radius: 0 18px 0 40px; opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.about-card:hover::after { opacity: 1; }
+
+/* ═══════════════════════════════════
+   CASE STUDIES
+   ═══════════════════════════════════ */
+.work { padding: 100px 40px; background: var(--bg-alt); }
+.work-inner { max-width: 1120px; margin: 0 auto; }
+.section-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 48px; flex-wrap: wrap; gap: 20px;
+}
+.section-overline {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Fraunces', serif; font-size: 34px; font-weight: 600;
+  color: var(--orange); letter-spacing: -0.02em;
+}
+.section-link {
+  font-size: 14.5px; font-weight: 600; color: var(--orange);
+  display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s ease;
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: rgba(232,112,8,0.3);
+}
+.section-link:hover { gap: 10px; text-decoration-color: var(--orange); }
+
+.cs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.cs-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 20px;
+  overflow: hidden; transition: all 0.35s ease; cursor: pointer;
+}
+.cs-card:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(0,0,0,0.08); }
+.cs-card-img { height: 200px; position: relative; overflow: hidden; }
+.cs-img-1 { background: linear-gradient(135deg, #E87008 0%, #C49B1A 60%, #1A1A1A 100%); }
+.cs-img-2 { background: linear-gradient(135deg, #1A1A1A 0%, #C49B1A 45%, #E87008 100%); }
+.cs-img-3 { background: linear-gradient(135deg, #C49B1A 0%, #E87008 50%, #1A1A1A 100%); }
+.cs-card-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.cs-card-tags { position: absolute; top: 16px; left: 16px; z-index: 1; display: flex; gap: 6px; }
+.tag {
+  display: inline-block; padding: 5px 13px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.tag-orange { background: rgba(253,240,226,0.92); color: #C45E06; }
+.tag-gold { background: rgba(251,244,224,0.92); color: #9A7A0E; }
+.tag-dark { background: rgba(240,237,232,0.92); color: var(--text-secondary); }
+
+.cs-card-body { padding: 24px 26px 28px; }
+.cs-card-title {
+  font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600;
+  color: var(--text); line-height: 1.3; letter-spacing: -0.01em; margin-bottom: 10px;
+}
+.cs-card-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 18px; }
+.cs-card-metrics { display: flex; gap: 28px; padding-top: 16px; border-top: 1px solid var(--border); }
+.cs-mv {
+  font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700;
+  color: var(--orange); line-height: 1;
+}
+.cs-ml { font-size: 11.5px; color: var(--text-muted); margin-top: 4px; }
+
+/* ═══════════════════════════════════
+   BLOG
+   ═══════════════════════════════════ */
+.blog { padding: 100px 40px; max-width: 1120px; margin: 0 auto; }
+.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.blog-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 18px;
+  padding: 28px; transition: all 0.3s ease; cursor: pointer;
+  display: flex; flex-direction: column;
+}
+.blog-card:hover { transform: translateY(-5px); box-shadow: 0 14px 40px rgba(0,0,0,0.07); }
+.blog-card-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 18px; gap: 12px;
+}
+.blog-card-meta { font-size: 12.5px; color: var(--text-muted); letter-spacing: 0.02em; white-space: nowrap; }
+.blog-card-title {
+  font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600;
+  color: var(--text); line-height: 1.35; letter-spacing: -0.01em; margin-bottom: 12px; flex: 1;
+}
+.blog-card-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 20px; }
+.blog-card-read {
+  font-size: 13.5px; font-weight: 600; color: var(--orange);
+  display: inline-flex; align-items: center; gap: 4px; margin-top: auto;
+  transition: gap 0.2s ease;
+}
+.blog-card:hover .blog-card-read { gap: 10px; }
+
+/* ═══════════════════════════════════
+   NEWSLETTER
+   ═══════════════════════════════════ */
+.newsletter-wrap { padding: 0 40px 100px; max-width: 1120px; margin: 0 auto; }
+.newsletter {
+  background: var(--black); border-radius: 28px; padding: 64px 60px;
+  position: relative; overflow: hidden;
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center;
+}
+.newsletter::before {
+  content: ''; position: absolute; top: -80px; right: -80px;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,112,8,0.1) 0%, transparent 70%);
+}
+.newsletter::after {
+  content: ''; position: absolute; bottom: -60px; left: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,155,26,0.06) 0%, transparent 70%);
+}
+.newsletter-content { position: relative; z-index: 1; }
+.newsletter h2 {
+  font-family: 'Fraunces', serif; font-size: 32px; font-weight: 600;
+  color: var(--orange); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 14px;
+}
+.newsletter p {
+  font-size: 15.5px; color: rgba(255,255,255,0.55); line-height: 1.6; max-width: 400px;
+}
+.newsletter-form {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.nl-input {
+  padding: 16px 20px; border-radius: 12px;
+  border: 1.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05);
+  color: #fff; font-family: 'DM Sans', sans-serif; font-size: 15px;
+  outline: none; transition: border-color 0.2s ease; width: 100%;
+}
+.nl-input::placeholder { color: rgba(255,255,255,0.3); }
+.nl-input:focus { border-color: var(--orange); }
+.nl-btn {
+  padding: 16px 32px; border-radius: 12px; background: var(--orange); color: #fff;
+  border: none; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 15px;
+  cursor: pointer; transition: all 0.25s ease; width: 100%;
+  box-shadow: 0 3px 12px rgba(232,112,8,0.25);
+}
+.nl-btn:hover { background: var(--orange-hover); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(232,112,8,0.35); }
+.nl-note { font-size: 12.5px; color: rgba(255,255,255,0.35); text-align: center; }
+
+/* ═══════════════════════════════════
+   COMPANIES
+   ═══════════════════════════════════ */
+.companies {
+  padding: 56px 40px; border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border); background: #fff;
+}
+.companies-inner { max-width: 1120px; margin: 0 auto; text-align: center; }
+.companies-label {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 32px;
+}
+.companies-logos { display: flex; justify-content: center; align-items: center; gap: 56px; flex-wrap: wrap; }
+.company-name {
+  font-family: 'DM Sans', sans-serif; font-size: 19px; font-weight: 700;
+  color: var(--text-muted); opacity: 0.35; letter-spacing: -0.01em;
+  transition: all 0.3s ease;
+}
+.company-name:hover { opacity: 0.65; color: var(--orange); }
+
+/* ═══════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════ */
+.footer { background: var(--black); padding: 72px 40px 40px; }
+.footer-grid {
+  max-width: 1120px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px;
+  padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.footer-brand {
+  font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700;
+  color: var(--orange); margin-bottom: 14px; letter-spacing: -0.02em;
+}
+.footer-brand-desc {
+  font-size: 14.5px; color: rgba(255,255,255,0.4); line-height: 1.6; max-width: 280px;
+}
+.footer-col-title {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+}
+.footer-link {
+  display: block; font-size: 14.5px; color: rgba(255,255,255,0.45);
+  margin-bottom: 13px; transition: color 0.2s ease;
+}
+.footer-link:hover { color: var(--orange); }
+.footer-bottom {
+  max-width: 1120px; margin: 0 auto; padding-top: 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-copy { font-size: 13px; color: rgba(255,255,255,0.25); }
+.footer-social { display: flex; gap: 20px; }
+.footer-social a {
+  font-size: 13px; color: rgba(255,255,255,0.35); transition: color 0.2s ease;
+}
+.footer-social a:hover { color: var(--orange); }
+
+/* ═══════════════════════════════════
+   TOOLKIT
+   ═══════════════════════════════════ */
+.toolkit { padding: 100px 40px; background: var(--black); position: relative; overflow: hidden; }
+.toolkit::before {
+  content: ''; position: absolute; top: -120px; right: -120px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,112,8,0.08) 0%, transparent 70%);
+}
+.toolkit::after {
+  content: ''; position: absolute; bottom: -80px; left: -80px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,155,26,0.05) 0%, transparent 70%);
+}
+.toolkit-inner { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; }
+.toolkit .section-overline { color: var(--gold); }
+.toolkit .section-title { color: var(--orange); margin-bottom: 6px; }
+.toolkit .section-subtitle {
+  font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.6;
+  max-width: 520px; margin-bottom: 0;
+}
+.toolkit .section-link { color: var(--orange); text-decoration-color: rgba(232,112,8,0.3); }
+.toolkit .section-link:hover { text-decoration-color: var(--orange); }
+
+/* Featured diagnostics (2-col) */
+.toolkit-featured-label {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); margin-top: 48px; margin-bottom: 18px;
+  padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.toolkit-featured { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+
+.toolkit-diag-card {
+  border-radius: 22px; padding: 32px 28px; transition: all 0.35s ease;
+  cursor: pointer; display: flex; flex-direction: column; position: relative; overflow: hidden;
+}
+.toolkit-diag-card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(0,0,0,0.3); }
+
+.toolkit-diag-card.orange-theme {
+  background: linear-gradient(160deg, rgba(232,112,8,0.1) 0%, rgba(232,112,8,0.03) 100%);
+  border: 1.5px solid rgba(232,112,8,0.2);
+}
+.toolkit-diag-card.orange-theme:hover { border-color: rgba(232,112,8,0.5); }
+
+.toolkit-diag-card.gold-theme {
+  background: linear-gradient(160deg, rgba(196,155,26,0.1) 0%, rgba(196,155,26,0.03) 100%);
+  border: 1.5px solid rgba(196,155,26,0.2);
+}
+.toolkit-diag-card.gold-theme:hover { border-color: rgba(196,155,26,0.5); }
+
+.toolkit-diag-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.toolkit-diag-badge.orange { color: var(--orange); }
+.toolkit-diag-badge.gold { color: var(--gold); }
+.toolkit-diag-badge-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.toolkit-diag-badge-dot.orange { background: var(--orange); }
+.toolkit-diag-badge-dot.gold { background: var(--gold); }
+
+.toolkit-diag-for {
+  font-size: 12px; color: rgba(255,255,255,0.35); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+.toolkit-diag-for::before {
+  content: '→'; font-size: 11px;
+}
+
+.toolkit-diag-title {
+  font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600;
+  color: #fff; line-height: 1.3; letter-spacing: -0.01em; margin-bottom: 10px;
+}
+.toolkit-diag-desc {
+  font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.55;
+  margin-bottom: 20px; flex: 1;
+}
+.toolkit-diag-features {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
+}
+.toolkit-diag-feature {
+  font-size: 12px; padding: 4px 12px; border-radius: 16px;
+}
+.toolkit-diag-feature.orange { background: rgba(232,112,8,0.1); color: rgba(232,112,8,0.7); }
+.toolkit-diag-feature.gold { background: rgba(196,155,26,0.1); color: rgba(196,155,26,0.7); }
+
+.toolkit-diag-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06);
+}
+.toolkit-diag-price {
+  font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700;
+}
+.toolkit-diag-price.orange { color: var(--orange); }
+.toolkit-diag-price.gold { color: var(--gold); }
+.toolkit-diag-cta {
+  font-size: 13.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px;
+  transition: gap 0.2s ease;
+}
+.toolkit-diag-cta.orange { color: var(--orange); }
+.toolkit-diag-cta.gold { color: var(--gold); }
+.toolkit-diag-card:hover .toolkit-diag-cta { gap: 11px; }
+
+/* Regular toolkit grid (3-col) */
+.toolkit-more-label {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); margin-bottom: 18px;
+  padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.toolkit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+.toolkit-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px; padding: 28px 24px; transition: all 0.35s ease;
+  cursor: pointer; display: flex; flex-direction: column;
+}
+.toolkit-card:hover {
+  background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.15);
+  transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+}
+.toolkit-card-icon {
+  width: 42px; height: 42px; border-radius: 12px; margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: center; font-size: 19px;
+}
+.toolkit-card-icon.play { background: rgba(196,155,26,0.12); color: var(--gold); }
+.toolkit-card-icon.tmpl { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+.toolkit-card-icon.wksp { background: rgba(232,112,8,0.1); color: var(--orange); }
+
+.toolkit-card-type {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.toolkit-card-type.play { color: var(--gold); }
+.toolkit-card-type.tmpl { color: rgba(255,255,255,0.4); }
+.toolkit-card-type.wksp { color: var(--orange); }
+
+.toolkit-card-title {
+  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600;
+  color: #fff; line-height: 1.3; letter-spacing: -0.01em; margin-bottom: 8px;
+}
+.toolkit-card-desc {
+  font-size: 13.5px; color: rgba(255,255,255,0.4); line-height: 1.5;
+  margin-bottom: 18px; flex: 1;
+}
+.toolkit-card-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06);
+}
+.toolkit-card-price {
+  font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: var(--orange);
+}
+.toolkit-card-cta {
+  font-size: 13px; font-weight: 600; color: var(--orange);
+  display: inline-flex; align-items: center; gap: 4px; transition: gap 0.2s ease;
+}
+.toolkit-card:hover .toolkit-card-cta { gap: 10px; }
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════ */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 48px; min-height: auto; }
+  .hero-visual { order: -1; }
+  .hero-photo-frame { width: 300px; height: 360px; }
+  .hero-title { font-size: 38px; }
+  .metric-float { display: none; }
+  .metrics-inner { grid-template-columns: 1fr; gap: 28px; }
+  .metric-item:not(:last-child)::after { display: none; }
+  .metric-value { font-size: 36px; }
+  .about { grid-template-columns: 1fr; gap: 48px; padding: 64px 24px; }
+  .work { padding: 64px 24px; }
+  .cs-grid { grid-template-columns: 1fr; }
+  .blog { padding: 64px 24px; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .toolkit { padding: 64px 24px; }
+  .toolkit-featured { grid-template-columns: 1fr; }
+  .toolkit-grid { grid-template-columns: 1fr; }
+  .newsletter { grid-template-columns: 1fr; padding: 40px 28px; gap: 28px; }
+  .newsletter-wrap { padding: 0 24px 64px; }
+  .newsletter h2 { font-size: 26px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+  .section-header { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .nav-mobile-toggle { display: block; }
+  .hero-title { font-size: 32px; }
+  .hero-desc { font-size: 16px; }
+  .hero-photo-frame { width: 240px; height: 290px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ NAV ═══════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Diana Perez</a>
+    <div class="nav-links">
+      <a href="#" class="nav-link active">Home</a>
+      <a href="/about" class="nav-link">About</a>
+      <a href="/work" class="nav-link">Work</a>
+      <a href="/blog" class="nav-link">Blog</a>
+      <a href="/toolkit" class="nav-link">Toolkit</a>
+      <a href="/contact" class="nav-link">Contacto</a>
+      <a href="#newsletter" class="nav-cta">Suscríbete</a>
+    </div>
+    <button class="nav-mobile-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-overline fade-in">Head of Product Design · Mattilda</div>
+    <h1 class="hero-title fade-in fade-in-d1">
+      Diseño de <span>sistemas fintech</span> que escalan y generan revenue
+    </h1>
+    <p class="hero-desc fade-in fade-in-d2">
+      Convierto ambigüedad en dirección de producto clara, alineando equipos cross-funcionales para entregar plataformas que escalan a través de mercados, regulación y restricciones reales.
+    </p>
+    <div class="hero-buttons fade-in fade-in-d3">
+      <a href="/work" class="btn btn-primary">Ver case studies</a>
+      <a href="/blog" class="btn btn-outline">Leer el blog</a>
+    </div>
+  </div>
+  <div class="hero-visual fade-in fade-in-d2">
+    <div class="hero-photo-frame">
+      <div class="hero-photo-inner">
+        <span class="hero-photo-placeholder">DP</span>
+      </div>
+    </div>
+    <div class="metric-float mf-1">
+      <div class="metric-float-value">~$15M</div>
+      <div class="metric-float-label">revenue mensual recuperado</div>
+    </div>
+    <div class="metric-float mf-2">
+      <div class="metric-float-value">9</div>
+      <div class="metric-float-label">mercados globales</div>
+    </div>
+    <div class="metric-float mf-3">
+      <div class="metric-float-value">~21%</div>
+      <div class="metric-float-label">reducción en rework</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ METRICS ═══════ -->
+<section class="metrics-bar">
+  <div class="metrics-inner">
+    <div class="metric-item">
+      <div class="metric-value">$150K+</div>
+      <div class="metric-desc">USD mensuales recuperados vía sistemas self-service de confianza</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-value">~21%</div>
+      <div class="metric-desc">Reducción en rework de ingeniería a través de plataformas escalables</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-value">77%</div>
+      <div class="metric-desc">Incremento en originación de crédito bajo restricciones de riesgo</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ ABOUT ═══════ -->
+<section class="about">
+  <div>
+    <div class="about-overline">Sobre mí</div>
+    <h2 class="about-title">Diseño sistemas, no solo interfaces</h2>
+    <p class="about-text">
+      Soy Diana, Strategic Product Design Leader con más de 10 años de experiencia construyendo plataformas fintech en entornos regulados y complejos a lo largo de LATAM, India, África y el Sudeste Asiático.
+    </p>
+    <p class="about-text">
+      Más allá de productos, me enfoco en escalar el diseño como práctica: mentoreo diseñadores, defino frameworks de crecimiento, y establezco operaciones de diseño que permiten a los equipos moverse con claridad y confianza.
+    </p>
+    <a href="/about" class="about-link">Conoce mi historia completa →</a>
+  </div>
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="about-card-number">10+</div>
+      <div class="about-card-label">Años en diseño de producto fintech</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-number">9</div>
+      <div class="about-card-label">Mercados (MX, GT, DO, PA, PE, IN, VN, PH, KE)</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-number">~$15M</div>
+      <div class="about-card-label">Revenue mensual recuperado</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-number">71%</div>
+      <div class="about-card-label">Engagement de usuarios previamente inalcanzables</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CASE STUDIES ═══════ -->
+<section class="work">
+  <div class="work-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-overline">Case studies</div>
+        <h2 class="section-title">Trabajo seleccionado</h2>
+      </div>
+      <a href="/work" class="section-link">Ver todos →</a>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-card">
+        <div class="cs-card-img cs-img-1">
+          <div class="cs-card-tags"><span class="tag tag-dark">Growth</span><span class="tag tag-gold">Lending</span></div>
+        </div>
+        <div class="cs-card-body">
+          <h3 class="cs-card-title">Designing Installment Lending Under Risk Constraints</h3>
+          <p class="cs-card-desc">Lideré la estrategia UX de un producto global de installments que incrementó loan origination manteniendo lending responsable.</p>
+          <div class="cs-card-metrics">
+            <div><div class="cs-mv">77%</div><div class="cs-ml">↑ loan origination</div></div>
+            <div><div class="cs-mv">Global</div><div class="cs-ml">multi-mercado</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card-img cs-img-2">
+          <div class="cs-card-tags"><span class="tag tag-orange">Recovery</span><span class="tag tag-gold">Fintech</span></div>
+        </div>
+        <div class="cs-card-body">
+          <h3 class="cs-card-title">Revenue Recovery Through Trust-First Self-Service</h3>
+          <p class="cs-card-desc">Diseñé un sistema de recuperación self-service que re-enganchó usuarios inalcanzables y desbloqueó revenue mensual.</p>
+          <div class="cs-card-metrics">
+            <div><div class="cs-mv">$150K+</div><div class="cs-ml">recovered / mes</div></div>
+            <div><div class="cs-mv">71%</div><div class="cs-ml">engagement</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card-img cs-img-3">
+          <div class="cs-card-tags"><span class="tag tag-orange">Sistemas</span><span class="tag tag-dark">Scale</span></div>
+        </div>
+        <div class="cs-card-body">
+          <h3 class="cs-card-title">Scaling a Global Fintech Platform</h3>
+          <p class="cs-card-desc">De builds por mercado a una plataforma global configurable, reduciendo rework y complejidad operativa.</p>
+          <div class="cs-card-metrics">
+            <div><div class="cs-mv">~21%</div><div class="cs-ml">↓ rework</div></div>
+            <div><div class="cs-mv">9</div><div class="cs-ml">mercados</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ BLOG ═══════ -->
+<section class="blog">
+  <div class="section-header">
+    <div>
+      <div class="section-overline">Blog</div>
+      <h2 class="section-title">Últimos artículos</h2>
+    </div>
+    <a href="/blog" class="section-link">Ver todos →</a>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-card-top">
+        <span class="tag tag-orange">IA + Diseño</span>
+        <span class="blog-card-meta">Mar 2026</span>
+      </div>
+      <h3 class="blog-card-title">El Triple Diamond no es un proceso, es un flujo vivo</h3>
+      <p class="blog-card-desc">Repensar el framework más usado en diseño desde la realidad de equipos con recursos limitados y presión constante.</p>
+      <span class="blog-card-read">Leer artículo →</span>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-top">
+        <span class="tag tag-gold">LATAM</span>
+        <span class="blog-card-meta">Mar 2026</span>
+      </div>
+      <h3 class="blog-card-title">La IA democratiza capacidades, no reemplaza criterio</h3>
+      <p class="blog-card-desc">Para diseñadores en LATAM que operan con restricciones reales, la IA no es lujo: es infraestructura cognitiva.</p>
+      <span class="blog-card-read">Leer artículo →</span>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-top">
+        <span class="tag tag-dark">Liderazgo</span>
+        <span class="blog-card-meta">Feb 2026</span>
+      </div>
+      <h3 class="blog-card-title">Niveles de influencia del diseñador y madurez organizacional</h3>
+      <p class="blog-card-desc">Crucé el modelo de madurez de NN/g con los niveles de influencia que he observado en la práctica profesional.</p>
+      <span class="blog-card-read">Leer artículo →</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TOOLKIT ═══════ -->
+<section class="toolkit">
+  <div class="toolkit-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-overline">Toolkit</div>
+        <h2 class="section-title">Herramientas que funcionan</h2>
+        <p class="section-subtitle">Diagnósticos, playbooks, templates y workshops. Creados desde la práctica en fintech y mercados emergentes, no desde la teoría.</p>
+      </div>
+      <a href="/toolkit" class="section-link">Ver todo el toolkit →</a>
+    </div>
+
+    <!-- Featured: 2 Diagnostics -->
+    <div class="toolkit-featured-label">Diagnósticos interactivos</div>
+    <div class="toolkit-featured">
+
+      <!-- Diagnostic 1: For designers (orange) -->
+      <a href="/toolkit/diagnostico-madurez-ux" class="toolkit-diag-card orange-theme">
+        <div class="toolkit-diag-badge orange">
+          <span class="toolkit-diag-badge-dot orange"></span>
+          Diagnóstico interactivo
+        </div>
+        <div class="toolkit-diag-for">Para diseñadores y líderes de diseño</div>
+        <h3 class="toolkit-diag-title">Madurez UX × Niveles de Influencia</h3>
+        <p class="toolkit-diag-desc">Evalúa la madurez de diseño de tu organización y descubre tu nivel de influencia real. 12 preguntas, resultado personalizado con radar chart y roadmap de siguientes pasos.</p>
+        <div class="toolkit-diag-features">
+          <span class="toolkit-diag-feature orange">12 preguntas</span>
+          <span class="toolkit-diag-feature orange">6 dimensiones</span>
+          <span class="toolkit-diag-feature orange">Roadmap</span>
+          <span class="toolkit-diag-feature orange">PDF</span>
+        </div>
+        <div class="toolkit-diag-bottom">
+          <span class="toolkit-diag-price orange">$35 USD</span>
+          <span class="toolkit-diag-cta orange">Hacer diagnóstico →</span>
+        </div>
+      </a>
+
+      <!-- Diagnostic 2: For companies (gold) -->
+      <a href="/toolkit/diagnostico-empresarial" class="toolkit-diag-card gold-theme">
+        <div class="toolkit-diag-badge gold">
+          <span class="toolkit-diag-badge-dot gold"></span>
+          Diagnóstico para empresas
+        </div>
+        <div class="toolkit-diag-for">Para founders, CPOs, y VPs de producto</div>
+        <h3 class="toolkit-diag-title">Design Readiness Assessment</h3>
+        <p class="toolkit-diag-desc">¿Qué tan lista está tu empresa para escalar diseño? Evalúa 6 dimensiones organizacionales con preguntas adaptadas a tu rol. Incluye gap analysis y recomendaciones de inversión.</p>
+        <div class="toolkit-diag-features">
+          <span class="toolkit-diag-feature gold">Adaptado por rol</span>
+          <span class="toolkit-diag-feature gold">6 dimensiones</span>
+          <span class="toolkit-diag-feature gold">Gap analysis</span>
+          <span class="toolkit-diag-feature gold">Roadmap</span>
+        </div>
+        <div class="toolkit-diag-bottom">
+          <span class="toolkit-diag-price gold">$45 USD</span>
+          <span class="toolkit-diag-cta gold">Evaluar mi empresa →</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- More products -->
+    <div class="toolkit-more-label">Playbooks, templates y workshops</div>
+    <div class="toolkit-grid">
+
+      <a href="/toolkit/playbook-ia-diseno" class="toolkit-card">
+        <div class="toolkit-card-icon play">▣</div>
+        <div class="toolkit-card-type play">Playbook</div>
+        <h3 class="toolkit-card-title">Integrar IA en tu flujo de diseño con criterio</h3>
+        <p class="toolkit-card-desc">Framework de 4 capas (Absorb, Retain, Execute, Communicate) con implementación paso a paso. 30+ páginas.</p>
+        <div class="toolkit-card-bottom">
+          <span class="toolkit-card-price">$55 USD</span>
+          <span class="toolkit-card-cta">Ver más →</span>
+        </div>
+      </a>
+
+      <a href="/toolkit/career-growth-framework" class="toolkit-card">
+        <div class="toolkit-card-icon tmpl">⬡</div>
+        <div class="toolkit-card-type tmpl">Template · Notion</div>
+        <h3 class="toolkit-card-title">Career Growth Framework para diseñadores</h3>
+        <p class="toolkit-card-desc">Niveles, competencias, expectativas por rol, y guía de conversaciones de crecimiento. Listo para duplicar.</p>
+        <div class="toolkit-card-bottom">
+          <span class="toolkit-card-price">$25 USD</span>
+          <span class="toolkit-card-cta">Ver más →</span>
+        </div>
+      </a>
+
+      <a href="/toolkit/workshop-stakeholders" class="toolkit-card">
+        <div class="toolkit-card-icon wksp">▶</div>
+        <div class="toolkit-card-type wksp">Workshop · 60 min</div>
+        <h3 class="toolkit-card-title">Presentar diseño a stakeholders que hablan de revenue</h3>
+        <p class="toolkit-card-desc">Sesión grabada con ejercicios. Aprende a traducir decisiones de diseño a lenguaje de negocio que convence.</p>
+        <div class="toolkit-card-bottom">
+          <span class="toolkit-card-price">$65 USD</span>
+          <span class="toolkit-card-cta">Ver más →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ NEWSLETTER ═══════ -->
+<section class="newsletter-wrap" id="newsletter">
+  <div class="newsletter">
+    <div class="newsletter-content">
+      <h2>Diseño estratégico, sin filtros</h2>
+      <p>Escribo sobre diseño de producto, IA aplicada con criterio, y la realidad de liderar en LATAM. Sin spam, sin frases bonitas.</p>
+    </div>
+    <div class="newsletter-form">
+      <input type="email" class="nl-input" placeholder="tu@email.com">
+      <button class="nl-btn">Suscribirme al newsletter</button>
+      <span class="nl-note">Solo artículos nuevos. Nada más.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ COMPANIES ═══════ -->
+<section class="companies">
+  <div class="companies-inner">
+    <div class="companies-label">Organizaciones con las que he colaborado</div>
+    <div class="companies-logos">
+      <span class="company-name">Scotiabank</span>
+      <span class="company-name">Intuit</span>
+      <span class="company-name">Nestlé</span>
+      <span class="company-name">Tala</span>
+      <span class="company-name">Mattilda</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Diana Perez</div>
+      <p class="footer-brand-desc">Strategic Product Design Leader construyendo sistemas fintech escalables que generan impacto medible.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Sitio</div>
+      <a href="/about" class="footer-link">About</a>
+      <a href="/work" class="footer-link">Work</a>
+      <a href="/blog" class="footer-link">Blog</a>
+      <a href="/toolkit" class="footer-link">Toolkit</a>
+      <a href="/contact" class="footer-link">Contacto</a>
+    </div>
+    <div>
+      <div class="footer-col-title">Contenido</div>
+      <a href="/blog" class="footer-link">Artículos</a>
+      <a href="#newsletter" class="footer-link">Newsletter</a>
+      <a href="https://www.tiktok.com/@dianaperez.design" class="footer-link" target="_blank">TikTok</a>
+      <a href="https://www.linkedin.com/in/diana-marina-perez/" class="footer-link" target="_blank">LinkedIn</a>
+    </div>
+    <div>
+      <div class="footer-col-title">Contacto</div>
+      <a href="/cdn-cgi/l/email-protection#f4909d959a9599da818c99b49399959d98da979b99" class="footer-link"><span class="__cf_email__" data-cfemail="fc98959d929d91d2898491bc9b919d9590d29f9391">[email&#160;protected]</span></a>
+      <a href="https://www.linkedin.com/in/diana-marina-perez/" class="footer-link" target="_blank">LinkedIn DM</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Diana Perez. Todos los derechos reservados.</span>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/diana-marina-perez/" target="_blank">LinkedIn</a>
+      <a href="https://www.tiktok.com/@dianaperez.design" target="_blank">TikTok</a>
