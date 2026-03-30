@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, DM_Sans, JetBrains_Mono } from "next/font/google";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import ClientLayout from "@/components/layout/ClientLayout";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -39,9 +38,7 @@ export default function RootLayout({
       className={`${fraunces.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
       <body>
-        <Navbar />
-        {children}
-        <Footer />
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

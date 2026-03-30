@@ -77,7 +77,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <div style={{ borderBottom: "1px solid var(--border)", marginBottom: 48 }} />
         </section>
         <section style={{ padding: "0 40px 80px", maxWidth: 760, margin: "0 auto", fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.75 }}>
-          <div dangerouslySetInnerHTML={{ __html: dbPost.content ?? "" }} />
+          <style>{`
+            .prose h1 { font-family: var(--font-serif); font-size: 28px; font-weight: 700; margin: 32px 0 12px; color: var(--text-primary); }
+            .prose h2 { font-family: var(--font-serif); font-size: 24px; font-weight: 600; color: var(--orange); letter-spacing: -0.02em; margin: 28px 0 14px; }
+            .prose h3 { font-family: var(--font-serif); font-size: 20px; font-weight: 600; margin: 24px 0 10px; color: var(--text-primary); }
+            .prose p { margin: 0 0 16px; }
+            .prose ul, .prose ol { padding-left: 24px; margin: 0 0 16px; }
+            .prose li { margin-bottom: 6px; }
+            .prose blockquote { border-left: 3px solid var(--orange); padding-left: 16px; margin: 20px 0; color: var(--text-muted); font-style: italic; }
+            .prose a { color: var(--orange); text-decoration: underline; }
+            .prose img { max-width: 100%; border-radius: 8px; margin: 20px 0; }
+            .prose strong { font-weight: 600; color: var(--text-primary); }
+          `}</style>
+          <div className="prose" dangerouslySetInnerHTML={{ __html: dbPost.content ?? "" }} />
         </section>
       </>
     );

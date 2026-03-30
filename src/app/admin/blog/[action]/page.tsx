@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import RichTextEditor from "@/components/admin/RichTextEditor";
 
 function slugify(text: string) {
   return text
@@ -29,7 +28,8 @@ export default function BlogForm() {
   const [tags, setTags] = useState("");
   const [status, setStatus] = useState<"draft" | "published">("draft");
   const [saving, setSaving] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!isNew) {
@@ -52,6 +52,27 @@ export default function BlogForm() {
         });
     }
   }, [action, isNew]);
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    const supabase = createClient();
+    const ext = file.name.split(".").pop();
+    const path = `covers/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+
+    const { error } = await supabase.storage.from("blog-images").upload(path, file);
+    if (error) {
+      alert("Error uploading image: " + error.message);
+      setUploading(false);
+      return;
+    }
+
+    const { data: urlData } = supabase.storage.from("blog-images").getPublicUrl(path);
+    setCoverImage(urlData.publicUrl);
+    setUploading(false);
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -155,106 +176,103 @@ export default function BlogForm() {
             />
           </div>
           <div>
-            <label style={labelStyle}>Cover Image URL</label>
+            <label style={labelStyle}>Cover Image</label>
             <input
-              value={coverImage}
-              onChange={(e) => setCoverImage(e.target.value)}
-              style={inputStyle}
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              style={{ display: "none" }}
             />
-          </div>
-        </div>
-
-        <div style={{ marginBottom: 16 }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 6,
-            }}
-          >
-            <label style={{ ...labelStyle, marginBottom: 0 }}>
-              Contenido (Markdown)
-            </label>
-            <button
-              type="button"
-              onClick={() => setShowPreview(!showPreview)}
-              style={{
-                background: "none",
-                border: "none",
-                fontSize: 13,
-                fontWeight: 600,
-                color: "var(--orange)",
-                cursor: "pointer",
-              }}
-            >
-              {showPreview ? "Editar" : "Preview"}
-            </button>
-          </div>
-          {showPreview ? (
-            <div
-              style={{
-                background: "#fff",
-                border: "1.5px solid var(--border)",
-                borderRadius: 12,
-                padding: 20,
-                minHeight: 300,
-                fontSize: 15,
-                lineHeight: 1.7,
-                color: "var(--text-secondary)",
-              }}
-            >
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {content}
-              </ReactMarkdown>
+            <div style={{ display: "flex", gap: 8 }}>
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                style={{
+                  ...inputStyle,
+                  cursor: "pointer",
+                  textAlign: "left",
+                  color: uploading ? "var(--text-muted)" : coverImage ? "#16a34a" : "var(--text-secondary)",
+                  flex: 1,
+                }}
+              >
+                {uploading ? "Subiendo..." : coverImage ? "Imagen subida ✓" : "Seleccionar imagen..."}
+              </button>
+              {coverImage && (
+                <button
+                  type="button"
+                  onClick={() => setCoverImage("")}
+                  style={{
+                    padding: "0 12px",
+                    borderRadius: 10,
+                    border: "1.5px solid var(--border)",
+                    background: "#fff",
+                    cursor: "pointer",
+                    fontSize: 13,
+                    color: "var(--text-muted)",
+                  }}
+                >
+                  ✕
+                </button>
+              )}
             </div>
-          ) : (
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              rows={16}
-              style={{
-                ...inputStyle,
-                fontFamily: "var(--font-mono)",
-                fontSize: 14,
-                lineHeight: 1.6,
-                resize: "vertical",
-              }}
-            />
-          )}
+            {coverImage && (
+              <img
+                src={coverImage}
+                alt="Cover preview"
+                style={{
+                  marginTop: 8,
+                  maxHeight: 120,
+                  borderRadius: 8,
+                  objectFit: "cover",
+                }}
+              />
+            )}
+          </div>
         </div>
 
+        {/* Rich Text Editor */}
+        <div style={{ marginBottom: 16 }}>
+          <label style={labelStyle}>Contenido</label>
+          <RichTextEditor content={content} onChange={setContent} />
+        </div>
+
+        {/* Status Toggle */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 20,
+            gap: 12,
             marginBottom: 24,
+            padding: "16px 20px",
+            background: "var(--bg-alt)",
+            borderRadius: 12,
           }}
         >
-          <label style={{ ...labelStyle, marginBottom: 0 }}>Status:</label>
-          <button
-            type="button"
-            onClick={() =>
-              setStatus(status === "draft" ? "published" : "draft")
-            }
+          <label style={{ ...labelStyle, marginBottom: 0, fontSize: 14 }}>Status:</label>
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value as "draft" | "published")}
             style={{
-              padding: "6px 16px",
+              padding: "8px 16px",
               borderRadius: 8,
-              fontSize: 13,
+              fontSize: 14,
               fontWeight: 600,
-              border: "none",
+              border: "1.5px solid var(--border)",
               cursor: "pointer",
-              background:
-                status === "published"
-                  ? "rgba(34,197,94,0.1)"
-                  : "var(--bg-alt)",
-              color:
-                status === "published" ? "#16a34a" : "var(--text-muted)",
+              background: status === "published" ? "rgba(34,197,94,0.1)" : "#fff",
+              color: status === "published" ? "#16a34a" : "var(--text-secondary)",
             }}
           >
-            {status === "published" ? "Published" : "Draft"}
-          </button>
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+          </select>
+          {status === "published" && (
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
+              Se publicará con fecha de hoy
+            </span>
+          )}
         </div>
 
         <div style={{ display: "flex", gap: 12 }}>
