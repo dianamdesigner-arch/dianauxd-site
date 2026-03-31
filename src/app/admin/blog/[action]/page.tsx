@@ -58,19 +58,19 @@ export default function BlogForm() {
     if (!file) return;
 
     setUploading(true);
-    const supabase = createClient();
-    const ext = file.name.split(".").pop();
-    const path = `covers/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const formData = new FormData();
+    formData.append("file", file);
 
-    const { error } = await supabase.storage.from("blog-images").upload(path, file);
-    if (error) {
-      alert("Error uploading image: " + error.message);
+    const res = await fetch("/api/upload", { method: "POST", body: formData });
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert("Error uploading image: " + data.error);
       setUploading(false);
       return;
     }
 
-    const { data: urlData } = supabase.storage.from("blog-images").getPublicUrl(path);
-    setCoverImage(urlData.publicUrl);
+    setCoverImage(data.url);
     setUploading(false);
   }
 

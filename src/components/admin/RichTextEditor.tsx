@@ -6,7 +6,6 @@ import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import { useEffect, useCallback } from "react";
-import { createClient } from "@/lib/supabase/client";
 
 interface RichTextEditorProps {
   content: string;
@@ -42,16 +41,15 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
       const file = (e.target as HTMLInputElement).files?.[0];
       if (!file) return;
 
-      const supabase = createClient();
-      const ext = file.name.split(".").pop();
-      const path = `editor/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-      const { error } = await supabase.storage.from("blog-images").upload(path, file);
-      if (error) {
-        alert("Error uploading image: " + error.message);
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      const data = await res.json();
+      if (!res.ok) {
+        alert("Error uploading image: " + data.error);
         return;
       }
-      const { data: urlData } = supabase.storage.from("blog-images").getPublicUrl(path);
-      editor.chain().focus().setImage({ src: urlData.publicUrl }).run();
+      editor.chain().focus().setImage({ src: data.url }).run();
     };
     input.click();
   }, [editor]);
