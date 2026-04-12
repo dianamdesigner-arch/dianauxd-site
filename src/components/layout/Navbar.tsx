@@ -9,8 +9,8 @@ export default function Navbar() {
     `nav-link${pathname === href ? ' active' : ''}`
 
   return (
-    <nav className="navbar">
-      <div className="nav-container">
+    <nav className="nav">
+      <div className="nav-inner">
         <Link href="/" className="nav-logo">
           Diana Perez
         </Link>
