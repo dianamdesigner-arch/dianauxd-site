@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image"
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -66,8 +67,8 @@ export default function AboutPage() {
         </div>
         <div className="hero-visual fade-in fade-in-d2">
           <div className="hero-photo-frame">
-            <div className="hero-photo-inner">
-              <span className="hero-photo-placeholder">DP</span>
+            <div className="hero-photo-inner" style={{position:"relative",overflow:"hidden"}}>
+              <Image src="/diana-perez.jpg" alt="Diana Perez" fill className="object-cover object-top" />
             </div>
           </div>
         </div>
