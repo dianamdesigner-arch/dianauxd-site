@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image"
 import NewsletterForm from "@/components/NewsletterForm";
 
 /* ═══════════════════════════════════
@@ -33,8 +34,8 @@ function Hero() {
       </div>
       <div className="hero-visual fade-in fade-in-d2">
         <div className="hero-photo-frame">
-          <div className="hero-photo-inner">
-            <span className="hero-photo-placeholder">DP</span>
+          <div className="hero-photo-inner" style={{position:"relative",overflow:"hidden"}}>
+            <Image src="/diana-perez.jpg" alt="Diana Perez" fill className="object-cover object-top" />
           </div>
         </div>
         <div className="metric-float mf-1">
