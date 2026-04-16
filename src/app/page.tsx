@@ -495,6 +495,18 @@ export default function Home() {
       <CaseStudyGrid />
       <BlogPreview />
       <ToolkitPreview />
+      <section style={{ background: '#fff8f0', borderTop: '1px solid #ffe0b2', borderBottom: '1px solid #ffe0b2', padding: '64px 40px' }}>
+        <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '40px', flexWrap: 'wrap' }}>
+          <div style={{ flex: 1, minWidth: '280px' }}>
+            <div style={{ display: 'inline-flex', background: '#fff3e0', border: '1px solid #ffe0b2', borderRadius: '100px', padding: '4px 14px', fontSize: '12px', fontWeight: '700', color: '#E87008', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Recurso gratuito</div>
+            <h2 style={{ fontFamily: 'Fraunces,serif', fontSize: '28px', fontWeight: '700', letterSpacing: '-0.02em', color: '#1a1a18', marginBottom: '12px', lineHeight: '1.2' }}>Tu onboarding es tu primer proyecto de research.</h2>
+            <p style={{ fontSize: '15px', color: '#6b6b63', lineHeight: '1.6' }}>El framework con las 4 capas para mapear stakeholders y entender tu nueva organizacion en dos semanas.</p>
+          </div>
+          <a href='/recursos/onboarding-research' style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#E87008', color: '#fff', padding: '16px 28px', borderRadius: '12px', fontSize: '15px', fontWeight: '700', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}>
+            Descargar template gratis →
+          </a>
+        </div>
+      </section>
       <Newsletter />
       <Companies />
     </>
